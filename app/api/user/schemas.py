@@ -1,12 +1,20 @@
-from pydantic import BaseModel
-from typing import Literal
+from robyn.robyn import QueryParams
+from robyn.types import Body
 
 
-class BodyReq(BaseModel):
+class PaginationItemReq(QueryParams):
+    page: int
+    page_size: int
+
+
+class PaginationItemSchema(PaginationItemReq):
+    total_count: int
+
+
+class GetReq(PaginationItemReq):
+    name: str
+
+
+class BodyReqEg(Body):
     name: str
     age: int
-    status: Literal["error", "success"]
-
-    class Config:
-        from_attributes = True
-        validate_assignment = True
